@@ -13,8 +13,7 @@ Begin by installing this package through Composer. Edit your project's `composer
     "require": {
 		"laravel/framework": "4.*",
 		"travisjryan/twilio": "dev-master"
-	},
-	"minimum-stability" : "dev"
+	}
 
 
 Next, update Composer from the Terminal:
