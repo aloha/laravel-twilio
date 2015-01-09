@@ -1,6 +1,6 @@
-laravel4-twilio
+laravel5-twilio
 ===============
-Laravel 4 Twillio API Integration
+Laravel 5 Twillio API Integration
 
 
 - `twilio:sms`
@@ -8,31 +8,41 @@ Laravel 4 Twillio API Integration
 
 
 ## Installation
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `aloha/twilio`.
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `olsgreen/twilio` and the repository (only until we publish on packagist).
 
-	"require": {
-		...
-		"aloha/twilio": "1.0.*",
-	}
+    "require": {
+        ...
+        "olsgreen/twilio": "2.0.*",
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:olsgreen/laravel5-twilio.git"
+        }
+    ]
 
 Next, update Composer from the Terminal:
 
     composer update
 
-Once composer is finished, you need to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
+Once composer is finished, you need to add the service provider. Open `config/app.php`, and add a new item to the providers array.
 
     'Aloha\Twilio\TwilioServiceProvider',
 
-Then, add a Facade for more convenient usage. In `app/config/app.php` add the following line to the `aliases` array:
+Then, add a Facade for more convenient usage. In `config/app.php` add the following line to the `aliases` array:
 
-        'Twilio' => 'Aloha\Twilio\Facades\Twilio',
+    'Twilio' => 'Aloha\Twilio\Facades\Twilio',
 
-Publish config files from the Terminal
+Add the configuration to `config/services.php`
 
-        php artisan config:publish aloha/twilio
-        
-Edit `config/packages/aloha/twilio` with your appropriate Twilio settings        
-
+```
+'twilio' => [
+    'sid' => 'Your Twilio Account SID #',
+    'token' => 'Access token that can be found in your Twilio dashboard',
+    'from' => 'The Phone number registered with Twilio that your SMS & Calls will come from',
+    'ssl_verify' => true, // Development switch to bypass API SSL certificate verfication
+]
+```
 
 ## Usage
 
@@ -73,4 +83,10 @@ print $twiml;
 
 ### License
 
-laravel4-twilio is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+laravel5-twilio is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+### Credits
+
+Based on the original Laravel 4 package by Travis J Ryan that can be found here:
+
+https://github.com/aloha/laravel4-twilio
