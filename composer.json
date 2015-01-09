@@ -1,19 +1,23 @@
 {
-    "name": "aloha/twilio",
-    "description": "Twilio API for Laravel 4",
+    "name": "olsgreen/twilio",
+    "description": "Twilio API for Laravel 5",
     "type": "library",
-    "keywords": ["sms","ivr","laravel4","twilio"],
+    "keywords": ["sms","ivr","laravel5","twilio"],
     "authors": [
         {
             "name": "Travis J Ryan",
             "email": "travisjryan@gmail.com"
+        },
+        {
+            "name": "Oliver Green",
+            "email": "green2go@gmail.com"
         }
     ],
-    "homepage":"https://github.com/aloha/laravel4-twilio",
+    "homepage":"https://github.com/olsgreen/laravel4-twilio/",
     "license": "MIT",
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.*",
+        "illuminate/support": "~5.0",
         "twilio/sdk":"3.12.*"
     },
     "autoload": {
@@ -21,5 +25,5 @@
             "Aloha\\Twilio": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
