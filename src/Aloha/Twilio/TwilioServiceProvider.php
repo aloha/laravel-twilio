@@ -22,7 +22,7 @@ class TwilioServiceProvider extends ServiceProvider {
         {
             $config = \Config::get('services.twilio');
             if (!array($config)) {
-                throw new \Exception('Invalid configuration.');
+                throw new \Exception('Twilio: Invalid configuration.');
             }
             return new Twilio($config);
         });
