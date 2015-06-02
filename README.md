@@ -21,7 +21,7 @@ Begin by installing this package through Composer. Run this command from the Ter
 To wire this up in your Laravel project, wether it's built in Laravel 4 or 5, you need to add the service provider. Open `app.php`, and add a new item to the providers array.
 
 ```php
-'Aloha\Twilio\Support\Laravel\ServiceProvider',
+'Aloha\Twilio\TwilioServiceProvider',
 ```
 
 This will register two new artisan commands for you:
