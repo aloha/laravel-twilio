@@ -1,5 +1,7 @@
 laravel-twilio
 ===============
+
+[![Join the chat at https://gitter.im/aloha/laravel-twilio](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aloha/laravel-twilio?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Laravel Twillio API Integration
 
 [![Build Status](https://travis-ci.org/aloha/laravel-twilio.svg)](https://travis-ci.org/aloha/laravel-twilio)
