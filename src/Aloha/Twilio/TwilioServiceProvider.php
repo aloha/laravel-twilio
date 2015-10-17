@@ -36,6 +36,11 @@ class TwilioServiceProvider extends ServiceProvider {
             return new Commands\TwilioSmsCommand();
         });
 
+        // Register Twilio Test MMS Command
+        $this->app['twilio.mms'] = $this->app->share(function($app) {
+            return new Commands\TwilioMmsCommand();
+        });
+
         // Register Twilio Test Call Command
         $this->app['twilio.call'] = $this->app->share(function($app) {
             return new Commands\TwilioCallCommand();
@@ -43,6 +48,7 @@ class TwilioServiceProvider extends ServiceProvider {
 
         $this->commands(
             'twilio.sms',
+            'twilio.mms',
             'twilio.call'
         );
 

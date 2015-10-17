@@ -16,9 +16,20 @@
         "illuminate/support": "4.*",
         "twilio/sdk":"3.12.*"
     },
+    "require-dev": {
+        "fabpot/php-cs-fixer": "^1.9",
+        "illuminate/console": "~4",
+        "illuminate/support": "~4",
+        "phpunit/phpunit": "~4.5"
+    },
     "autoload": {
         "psr-0": {
             "Aloha\\Twilio": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "Aloha\\Twilio\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable"

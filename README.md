@@ -54,7 +54,7 @@ Sending a MMS Message
 ```php
 <?php
 
-Twilio::messageMMS('+18085551212', 'Pink Elephants and Happy Rainbows', array('http://placehold.it/200x200'));
+Twilio::messageWithMedia('+18085551212', 'Pink Elephants and Happy Rainbows', array('http://placehold.it/200x200'));
 
 ?>
 ```
