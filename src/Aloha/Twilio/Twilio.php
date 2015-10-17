@@ -13,10 +13,21 @@ class Twilio {
     public function message($to, $message, $from=null) {
         $twilio = $this->getTwilio();
         // Send SMS via Twilio SDK
-        return $twilio->account->sms_messages->create(
+        return $twilio->account->messages->sendMessage(
             is_null($from) ? $this->config['from'] : $from,
             $to,
             $message
+        );
+    }
+
+    public function messageMMS($to, $message, $media, $from=null) {
+        $twilio = $this->getTwilio();
+        // Send SMS via Twilio SDK
+        return $twilio->account->messages->sendMessage(
+            is_null($from) ? $this->config['from'] : $from,
+            $to,
+            $message,
+            $media
         );
     }
 

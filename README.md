@@ -1,3 +1,13 @@
+FORKED COPY
+This version has been forked from the original author. My changes as as follows:
+
+Master Branch - Was for Laravel 5 and was removed, this fork is only for Laravel 4.
+Updated Twilio.php to use different sending function from Twilio SDK. Previous implementation was limited to 160 characters.
+Also implemented a MMS sending function.
+
+Original: https://github.com/aloha/laravel-twilio
+
+
 laravel4-twilio
 ===============
 Laravel 4 Twillio API Integration
