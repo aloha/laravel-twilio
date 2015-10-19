@@ -43,45 +43,34 @@ Sending a SMS Message
 
 ```php
 <?php
-
 Twilio::message('+18085551212', 'Pink Elephants and Happy Rainbows');
-
-?>
 ```
 
 Sending a MMS Message
 
 ```php
 <?php
-
 Twilio::messageWithMedia('+18085551212', 'Pink Elephants and Happy Rainbows', array('http://placehold.it/200x200'));
-
-?>
 ```
 
 Creating a Call
 
 ```php
 <?php
-
 Twilio::call('+18085551212', 'http://foo.com/call.xml');
-
-?>
 ```
 
 Generating TwiML
 
 ```php
 <?php
-
-$twiml = Twilio::twiml(function($message) {
+$twiml = 
+Twilio::twiml(function($message) {
     $message->say('Hello');
     $message->play('https://api.twilio.com/cowbell.mp3', array('loop' => 5));
 });
 
 print $twiml;
-
-?>
 ```
 
 ### License
