@@ -21,7 +21,7 @@ class TwilioMmsCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Twilio command to test Twilio API Integration.';
+    protected $description = 'Command to test MMS with Twilios API.';
 
     /**
      * Create a new command instance.
@@ -53,16 +53,16 @@ class TwilioMmsCommand extends Command {
         $this->line($text);
 
         // Grab the image option if specified
-        $image_url = $this->option('image_url');
+        $imageUrl = $this->option('image_url');
 
         // If we havent specified a message, setup a default one
-        if(is_null($image_url)) {
-            $image_url = "http://placehold.it/200x200";
+        if(is_null($imageUrl)) {
+            $imageUrl = "http://placehold.it/200x200";
         }
 
-        $this->line($image_url);
+        $this->line($imageUrl);
 
-        Twilio::messageWithMedia($this->argument('phone'), $text, array($image_url));
+        Twilio::messageWithMedia($this->argument('phone'), $text, array($imageUrl));
     }
 
     /**
@@ -86,7 +86,7 @@ class TwilioMmsCommand extends Command {
     {
         return array(
             array('text', null, InputOption::VALUE_OPTIONAL, 'Optional message that will be sent.', null),
-            array('image_url', null, InputOption::VALUE_OPTIONAL, 'Optional image url url that will be sent.', null)
+            array('image_url', null, InputOption::REQUIRED, 'Required image url url that will be sent.', null)
         );
     }
 
