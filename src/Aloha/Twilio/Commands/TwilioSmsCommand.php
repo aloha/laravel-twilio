@@ -21,7 +21,7 @@ class TwilioSmsCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Twilio command to test Twilio API Integration.';
+    protected $description = 'Command to test SMS with Twilios API.';
 
     /**
      * Create a new command instance.
@@ -77,7 +77,7 @@ class TwilioSmsCommand extends Command {
     protected function getOptions()
     {
         return array(
-            array('text', null, InputOption::VALUE_OPTIONAL, 'Optional message that will be sent.', null)
+            array('text', null, InputOption::REQUIRED, 'Required message that will be sent.', null)
         );
     }
 
