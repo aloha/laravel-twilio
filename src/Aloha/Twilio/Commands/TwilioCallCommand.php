@@ -21,7 +21,7 @@ class TwilioCallCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Twilio command to test Twilio API Integration.';
+    protected $description = 'Command to test making a Call with Twilios API.';
 
     /**
      * Create a new command instance.
