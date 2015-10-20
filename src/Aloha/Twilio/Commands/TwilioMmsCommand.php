@@ -86,7 +86,7 @@ class TwilioMmsCommand extends Command {
     {
         return array(
             array('text', null, InputOption::VALUE_OPTIONAL, 'Optional message that will be sent.', null),
-            array('image_url', null, InputOption::REQUIRED, 'Required image url url that will be sent.', null)
+            array('image_url', null, InputOption::VALUE_REQUIRED, 'Required image url url that will be sent.', null)
         );
     }
 
