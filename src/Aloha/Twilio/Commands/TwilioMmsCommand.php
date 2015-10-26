@@ -5,7 +5,6 @@ namespace Aloha\Twilio\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Aloha\Twilio;
 
 class TwilioMmsCommand extends Command {
 
@@ -35,24 +34,19 @@ class TwilioMmsCommand extends Command {
         // Grab the text option if specified
         $text = $this->option('text');
 
-        // If we havent specified a message, setup a default one
-        if(is_null($text)) {
-            $text = "This is a test message sent from the artisan console";
+        // If we haven't specified a message, setup a default one
+        if (! is_null($text)) {
+            $this->line($text);
         }
 
-        $this->line($text);
+        // Grab the image URLs passed as options
+        $imageUrls = $this->option('image_url');
 
-        // Grab the image option if specified
-        $imageUrl = $this->option('image_url');
-
-        // If we havent specified a message, setup a default one
-        if(is_null($imageUrl)) {
-            $imageUrl = "http://placehold.it/200x200";
+        foreach ($imageUrls as $imageUrl) {
+            $this->line($imageUrl);
         }
 
-        $this->line($imageUrl);
-
-        Twilio::messageWithMedia($this->argument('phone'), $text, array($imageUrl));
+        \Twilio::messageWithMedia($this->argument('phone'), $text, $imageUrls);
     }
 
     /**
@@ -75,8 +69,8 @@ class TwilioMmsCommand extends Command {
     protected function getOptions()
     {
         return array(
-            array('text', null, InputOption::VALUE_OPTIONAL, 'Optional message that will be sent.', null),
-            array('image_url', null, InputOption::VALUE_REQUIRED, 'Required image url url that will be sent.', null)
+            array('text', null, InputOption::VALUE_OPTIONAL, 'Text message to add.', null),
+            array('image_url', null, InputOption::VALUE_IS_ARRAY, 'URLs (zero or more) for images to add to the MMS.', []),
         );
     }
 
