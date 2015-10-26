@@ -24,16 +24,6 @@ class TwilioMmsCommand extends Command {
     protected $description = 'Command to test MMS with Twilios API.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
