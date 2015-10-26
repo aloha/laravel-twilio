@@ -35,7 +35,7 @@ class TwilioSmsCommand extends Command {
         // Grab the text option if specified
         $text = $this->option('text');
 
-        // If we havent specified a message, setup a default one
+        // If we haven't specified a message, setup a default one
         if(is_null($text)) {
             $text = "This is a test message sent from the artisan console";
         }

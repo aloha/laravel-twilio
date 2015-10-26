@@ -36,7 +36,7 @@ class TwilioCallCommand extends Command {
         $from = $this->option('from');
         $url = $this->option('url');
 
-        // Set a default URL if we havent specified one since is mandatory.
+        // Set a default URL if we haven't specified one since is mandatory.
         if(is_null($url)) {
             $url = 'http://demo.twilio.com/docs/voice.xml';
         }
