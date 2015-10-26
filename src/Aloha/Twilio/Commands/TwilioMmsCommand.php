@@ -68,9 +68,11 @@ class TwilioMmsCommand extends Command {
      */
     protected function getOptions()
     {
+        $description = 'URLs (zero or more) for images to add to the MMS.';
+
         return array(
             array('text', null, InputOption::VALUE_OPTIONAL, 'Text message to add.', null),
-            array('image_url', null, InputOption::VALUE_IS_ARRAY, 'URLs (zero or more) for images to add to the MMS.', []),
+            array('image_url', null, InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, $description, array()),
         );
     }
 
