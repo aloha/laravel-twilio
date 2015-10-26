@@ -21,17 +21,7 @@ class TwilioSmsCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Command to test SMS with Twilios API.';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Send an SMS with Twilio.';
 
     /**
      * Execute the console command.

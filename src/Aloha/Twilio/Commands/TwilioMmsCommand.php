@@ -21,7 +21,7 @@ class TwilioMmsCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Command to test MMS with Twilios API.';
+    protected $description = 'Send an MMS with Twilio.';
 
     /**
      * Execute the console command.
