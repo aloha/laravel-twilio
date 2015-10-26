@@ -67,7 +67,7 @@ class TwilioSmsCommand extends Command {
     protected function getOptions()
     {
         return array(
-            array('text', null, InputOption::VALUE_REQUIRED, 'Required message that will be sent.', null)
+            array('text', null, InputOption::VALUE_OPTIONAL, 'Required message that will be sent.', null)
         );
     }
 
