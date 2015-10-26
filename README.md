@@ -9,18 +9,11 @@ Laravel 4 Twillio API Integration
 
 
 ## Installation
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `aloha/twilio`.
+Begin by installing this package through Composer.
 
-    "require": {
-		"laravel/framework": "4.*",
-		"aloha/twilio": "dev-master"
-	},
-	"minimum-stability" : "dev"
-
-
-Next, update Composer from the Terminal:
-
-    composer update
+```
+composer require aloha/twilio:"^1.0"
+```
 
 Once composer is finished, you need to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
