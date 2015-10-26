@@ -23,12 +23,12 @@
         "phpunit/phpunit": "~4.5"
     },
     "autoload": {
-        "psr-0": {
-            "Aloha\\Twilio": "src/"
+        "psr-4": {
+            "Aloha\\Twilio\\": "src/Aloha/Twilio"
         }
     },
     "autoload-dev": {
-        "psr-0": {
+        "psr-4": {
             "Aloha\\Twilio\\Tests\\": "tests/"
         }
     },
