@@ -65,7 +65,7 @@ class TwilioCallCommand extends Command {
     {
         return array(
             array('url', null, InputOption::VALUE_OPTIONAL, 'Optional url that will be used to fetch xml for call.', null),
-            array('from', null, InputOption::VALUE_OPTIONAL, 'Optional from number that will be used.', null)
+            array('from', null, InputOption::VALUE_OPTIONAL, 'Optional from number that will be used.', null),
         );
     }
 
