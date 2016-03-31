@@ -34,26 +34,33 @@ class Twilio implements TwilioInterface
      * @param string $sid
      * @param bool $sslVerify
      */
-    public function __construct($sid, $token, $from, $sslVerify = true)
+    public function __construct($sid, $token, $from, $sslVerify = true, $extraParams)
     {
         $this->sid = $sid;
         $this->token = $token;
         $this->from = $from;
         $this->sslVerify = $sslVerify;
+        $this->extraParams = $extraParams;
     }
 
     /**
      * @param string $to
      * @param string $message
      * @param string $from
+     * @param string $extraParams
      *
      * @return \Services_Twilio_Rest_Message
      */
-    public function message($to, $message, $from = null)
+    public function message($to, $message, $from = null, $extraParams = null)
     {
         $twilio = $this->getTwilio();
 
-        return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message);
+        if ($extraParams) {
+            return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message) + $extraParams ?: $this->extraParams;
+        } else {
+            return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message);
+        }
+
     }
 
     /**
@@ -88,7 +95,7 @@ class Twilio implements TwilioInterface
                 'Twiml' => $this->twiml($message),
             ]);
 
-            $message = 'https://twimlets.com/echo?'.$query;
+            $message = 'https://twimlets.com/echo?' . $query;
         }
 
         return $twilio->account->calls->create($from ?: $this->from, $to, $message, $options);
