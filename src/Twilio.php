@@ -46,11 +46,11 @@ class Twilio implements TwilioInterface
      * @param string $to
      * @param string $message
      * @param string $from
-     * @param string $extraParams
+     *
      *
      * @return \Services_Twilio_Rest_Message
      */
-    public function message($to, $message, $from = null, $extraParams = null)
+    public function message($to, $message, $from = null)
     {
         $twilio = $this->getTwilio();
 
