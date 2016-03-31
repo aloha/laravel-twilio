@@ -34,13 +34,12 @@ class Twilio implements TwilioInterface
      * @param string $sid
      * @param bool $sslVerify
      */
-    public function __construct($sid, $token, $from, $sslVerify = true, $extraParams)
+    public function __construct($sid, $token, $from, $sslVerify = true)
     {
         $this->sid = $sid;
         $this->token = $token;
         $this->from = $from;
         $this->sslVerify = $sslVerify;
-        $this->extraParams = $extraParams;
     }
 
     /**
@@ -55,12 +54,7 @@ class Twilio implements TwilioInterface
     {
         $twilio = $this->getTwilio();
 
-        if ($extraParams) {
-            return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message) + $extraParams ?: $this->extraParams;
-        } else {
-            return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message);
-        }
-
+        return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message);
     }
 
     /**
@@ -76,6 +70,21 @@ class Twilio implements TwilioInterface
         $twilio = $this->getTwilio();
 
         return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message, $mediaUrls);
+    }
+
+    /**
+     * @param string $to
+     * @param string $message
+     * @param string $from
+     * @param string $trackingParams
+     *
+     * @return \Services_Twilio_Rest_Message
+     */
+    public function messageWithTracking($to, $message, $from = null, $trackingParams = null)
+    {
+        $twilio = $this->getTwilio();
+
+        return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message, null, $trackingParams);
     }
 
     /**
