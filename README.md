@@ -99,6 +99,18 @@ $twilio->call('+18085551212', function ($message) {
 });
 ```
 
+Access the configured `\Services_Twilio` object:
+
+```php
+$sdk = $twilio->getTwilio();
+```
+
+You can also access this via the Facade as well:
+
+```php
+$sdk = Twilio::getTwilio();
+```
+
 #### Dummy class
 
 There is a dummy implementation of the `TwilioInterface` available: `Aloha\Twilio\Dummy`. This class
@@ -125,6 +137,16 @@ if (getenv('APP_ENV') === 'production') {
 // Inject it wherever you want.
 $notifier = new Notifier($twilio);
 ```
+
+## Credits
+
+- [Hannes Van De Vreken](https://twitter.com/hannesvdvreken)
+- [Travis Ryan](https://twitter.com/nayrsivart)
+- [All Contributors](../../contributors)
+
+Sponsored by:
+
+[![madewithlove](http://madewithlove.be/themes/madewithlove/assets/builds/img/social/opengraph.png)](http://mwl.be)
 
 ### License
 

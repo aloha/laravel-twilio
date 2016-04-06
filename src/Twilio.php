@@ -97,12 +97,13 @@ class Twilio implements TwilioInterface
     /**
      * @return \Services_Twilio
      */
-    private function getTwilio()
+    public function getTwilio()
     {
         if (!$this->sslVerify) {
             $http = new Services_Twilio_TinyHttp(
                 'https://api.twilio.com',
-                ['curlopts' => [
+                [
+                    'curlopts' => [
                         CURLOPT_SSL_VERIFYPEER => false,
                         CURLOPT_SSL_VERIFYHOST => 2,
                     ],
