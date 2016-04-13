@@ -1,4 +1,5 @@
 <?php
+
 namespace Aloha\Twilio\Support\Laravel;
 
 use Aloha\Twilio\Commands\TwilioCallCommand;
@@ -8,9 +9,6 @@ use Aloha\Twilio\TwilioInterface;
 
 trait ServiceProviderTrait
 {
-    /**
-     *
-     */
     public function register()
     {
         // Register manager for usage with the Facade.
