@@ -1,4 +1,5 @@
 <?php
+
 namespace Aloha\Twilio\Tests;
 
 use Aloha\Twilio\Commands\TwilioSmsCommand;
@@ -7,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 class TwilioSmsCommandTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * Test the name of the command
+     * Test the name of the command.
      */
     public function testName()
     {

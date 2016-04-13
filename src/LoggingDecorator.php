@@ -1,4 +1,5 @@
 <?php
+
 namespace Aloha\Twilio;
 
 use Psr\Log\LoggerInterface;
@@ -16,7 +17,7 @@ class LoggingDecorator implements TwilioInterface
     private $wrapped;
 
     /**
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface      $logger
      * @param \Aloha\Twilio\TwilioInterface $wrapped
      */
     public function __construct(LoggerInterface $logger, TwilioInterface $wrapped)
@@ -42,7 +43,7 @@ class LoggingDecorator implements TwilioInterface
     /**
      * @param string $to
      * @param string $message
-     * @param array $mediaUrls
+     * @param array  $mediaUrls
      * @param string $from
      *
      * @return \Services_Twilio_Rest_Message
@@ -55,10 +56,10 @@ class LoggingDecorator implements TwilioInterface
     }
 
     /**
-     * @param string $to
+     * @param string          $to
      * @param string|callable $message
-     * @param array $options
-     * @param string $from
+     * @param array           $options
+     * @param string          $from
      *
      * @return \Services_Twilio_Rest_Call
      */
