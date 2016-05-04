@@ -1,4 +1,5 @@
 <?php
+
 namespace Aloha\Twilio;
 
 use InvalidArgumentException;
@@ -17,7 +18,7 @@ class Manager implements TwilioInterface
 
     /**
      * @param string $default
-     * @param array $settings
+     * @param array  $settings
      */
     public function __construct($default, array $settings)
     {
@@ -61,7 +62,7 @@ class Manager implements TwilioInterface
     /**
      * @param string $to
      * @param string $message
-     * @param array $mediaUrls
+     * @param array  $mediaUrls
      * @param string $from
      *
      * @return \Services_Twilio_Rest_Message
@@ -72,10 +73,10 @@ class Manager implements TwilioInterface
     }
 
     /**
-     * @param string $to
+     * @param string          $to
      * @param string|callable $message
-     * @param array $options
-     * @param string $from
+     * @param array           $options
+     * @param string          $from
      *
      * @return \Services_Twilio_Rest_Call
      */
@@ -94,7 +95,7 @@ class Manager implements TwilioInterface
 
     /**
      * @param string $method
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return mixed
      */

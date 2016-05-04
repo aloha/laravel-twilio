@@ -1,4 +1,5 @@
 <?php
+
 namespace Aloha\Twilio;
 
 use InvalidArgumentException;
@@ -32,7 +33,7 @@ class Twilio implements TwilioInterface
      * @param string $token
      * @param string $from
      * @param string $sid
-     * @param bool $sslVerify
+     * @param bool   $sslVerify
      */
     public function __construct($sid, $token, $from, $sslVerify = true)
     {
@@ -47,7 +48,6 @@ class Twilio implements TwilioInterface
      * @param string $message
      * @param string $from
      *
-     *
      * @return \Services_Twilio_Rest_Message
      */
     public function message($to, $message, $from = null)
@@ -60,7 +60,7 @@ class Twilio implements TwilioInterface
     /**
      * @param string $to
      * @param string $message
-     * @param array $mediaUrls
+     * @param array  $mediaUrls
      * @param string $from
      *
      * @return \Services_Twilio_Rest_Message
@@ -80,18 +80,18 @@ class Twilio implements TwilioInterface
      *
      * @return \Services_Twilio_Rest_Message
      */
-    public function messageWithTracking($to, $message, $from = null, $trackingParams = null)
+    public function messageWithTracking($to, $message, array $mediaUrls = null, $from = null, array $trackingParams = [])
     {
         $twilio = $this->getTwilio();
 
-        return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message, null, $trackingParams);
+        return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message, $mediaUrls, $trackingParams);
     }
 
     /**
-     * @param string $to
+     * @param string          $to
      * @param string|callable $message
-     * @param array $options
-     * @param string $from
+     * @param array           $options
+     * @param string          $from
      *
      * @return \Services_Twilio_Rest_Call
      */
@@ -104,7 +104,7 @@ class Twilio implements TwilioInterface
                 'Twiml' => $this->twiml($message),
             ]);
 
-            $message = 'https://twimlets.com/echo?' . $query;
+            $message = 'https://twimlets.com/echo?'.$query;
         }
 
         return $twilio->account->calls->create($from ?: $this->from, $to, $message, $options);
