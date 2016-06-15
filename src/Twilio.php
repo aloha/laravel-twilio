@@ -1,4 +1,5 @@
 <?php
+
 namespace Aloha\Twilio;
 
 use InvalidArgumentException;
@@ -27,17 +28,17 @@ class Twilio implements TwilioInterface
      * @var bool
      */
     protected $sslVerify;
-    
-    /**
-     * @var \Services_Twilio
-     */
+
+     /**
+      * @var \Services_Twilio
+      */
      protected $twilio;
 
     /**
      * @param string $token
      * @param string $from
      * @param string $sid
-     * @param bool $sslVerify
+     * @param bool   $sslVerify
      */
     public function __construct($sid, $token, $from, $sslVerify = true)
     {
@@ -64,7 +65,7 @@ class Twilio implements TwilioInterface
     /**
      * @param string $to
      * @param string $message
-     * @param array $mediaUrls
+     * @param array  $mediaUrls
      * @param string $from
      *
      * @return \Services_Twilio_Rest_Message
@@ -78,9 +79,24 @@ class Twilio implements TwilioInterface
 
     /**
      * @param string $to
-     * @param string|callable $message
-     * @param array $options
+     * @param string $message
      * @param string $from
+     * @param string $trackingParams
+     *
+     * @return \Services_Twilio_Rest_Message
+     */
+    public function messageWithTracking($to, $message, array $mediaUrls = null, $from = null, array $trackingParams = [])
+    {
+        $twilio = $this->getTwilio();
+
+        return $twilio->account->messages->sendMessage($from ?: $this->from, $to, $message, $mediaUrls, $trackingParams);
+    }
+
+    /**
+     * @param string          $to
+     * @param string|callable $message
+     * @param array           $options
+     * @param string          $from
      *
      * @return \Services_Twilio_Rest_Call
      */
@@ -107,7 +123,7 @@ class Twilio implements TwilioInterface
         if ($this->twilio) {
             return $this->twilio;
         }
-        
+
         if (!$this->sslVerify) {
             $http = new Services_Twilio_TinyHttp(
                 'https://api.twilio.com',
@@ -119,7 +135,7 @@ class Twilio implements TwilioInterface
                 ]
             );
         }
-        
+
         $this->twilio = new Services_Twilio($this->sid, $this->token, null, isset($http) ? $http : null);
 
         return $this->twilio;
