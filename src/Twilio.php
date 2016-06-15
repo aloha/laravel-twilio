@@ -28,10 +28,10 @@ class Twilio implements TwilioInterface
      * @var bool
      */
     protected $sslVerify;
-    
-    /**
-     * @var \Services_Twilio
-     */
+
+     /**
+      * @var \Services_Twilio
+      */
      protected $twilio;
 
     /**
@@ -123,7 +123,7 @@ class Twilio implements TwilioInterface
         if ($this->twilio) {
             return $this->twilio;
         }
-        
+
         if (!$this->sslVerify) {
             $http = new Services_Twilio_TinyHttp(
                 'https://api.twilio.com',
@@ -135,7 +135,7 @@ class Twilio implements TwilioInterface
                 ]
             );
         }
-        
+
         $this->twilio = new Services_Twilio($this->sid, $this->token, null, isset($http) ? $http : null);
 
         return $this->twilio;
