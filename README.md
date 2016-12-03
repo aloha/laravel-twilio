@@ -23,7 +23,7 @@ To wire this up in your Laravel project, whether it's built in Laravel 4 or 5, y
 Open `app.php`, and add a new item to the providers array.
 
 ```php
-'Aloha\Twilio\Support\Laravel\ServiceProvider',
+'Aloha\Twilio\TwilioServiceProvider',
 ```
 
 This will register two new artisan commands for you:
