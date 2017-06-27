@@ -1,7 +1,6 @@
 <?php
 namespace Aloha\Twilio\Support\Laravel;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class ServiceProvider extends LaravelServiceProvider
@@ -36,7 +35,7 @@ class ServiceProvider extends LaravelServiceProvider
             return $this->provider;
         }
 
-        if (version_compare(Application::VERSION, '5.0', '<')) {
+        if (version_compare($this->app->version(), '5.0', '<')) {
             $this->provider = new L4ServiceProvider($this->app);
         } else {
             $this->provider = new L5ServiceProvider($this->app);
