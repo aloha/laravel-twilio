@@ -35,12 +35,20 @@ class ServiceProvider extends LaravelServiceProvider
             return $this->provider;
         }
 
-        if (version_compare($this->app->version(), '5.0', '<')) {
+        if ($this->is_laravel() && version_compare($this->app->version(), '5.0', '<')) {
             $this->provider = new L4ServiceProvider($this->app);
         } else {
             $this->provider = new L5ServiceProvider($this->app);
         }
 
         return $this->provider;
+    }
+
+    private function is_lumen() {
+        return class_exists('Laravel\Lumen\Application');
+    }
+
+    private function is_laravel() {
+        return !$this->is_lumen();
     }
 }
