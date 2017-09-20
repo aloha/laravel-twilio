@@ -45,7 +45,7 @@ class ServiceProvider extends LaravelServiceProvider
     }
 
     private function is_lumen() {
-        return class_exists('Laravel\Lumen\Application');
+        return is_a(app(), 'Laravel\Lumen\Application');
     }
 
     private function is_laravel() {
