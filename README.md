@@ -158,6 +158,14 @@ if (getenv('APP_ENV') === 'production') {
 $notifier = new Notifier($twilio);
 ```
 
+#### Only log API requests in development environments
+
+Enabling the `'fake'` configuration in `config/twilio.php` will write messages to
+the log file and suppress external HTTP requests to Twilio's service.
+
+When testing a development or UAT environment with actual phone numbers, this setting
+is useful in preventing accidental SMS deliveries.
+
 ## Credits
 
 - [Hannes Van De Vreken](https://twitter.com/hannesvdvreken)
