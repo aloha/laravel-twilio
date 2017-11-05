@@ -56,5 +56,7 @@ return [
                 'ssl_verify' => true,
             ],
         ],
+
+        'fake' => getenv('TWILIO_FAKE') ?: false,
     ],
 ];
