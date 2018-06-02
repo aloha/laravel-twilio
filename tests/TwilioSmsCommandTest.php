@@ -1,5 +1,5 @@
 <?php
-namespace Aloha\Twilio\Tests;
+namespace Tests;
 
 use Aloha\Twilio\Commands\TwilioSmsCommand;
 use PHPUnit_Framework_TestCase;

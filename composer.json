@@ -23,7 +23,12 @@
         "friendsofphp/php-cs-fixer": "^1.9",
         "illuminate/console": "~4||~5",
         "illuminate/support": "~4||~5",
+        "orchestra/testbench": "~3.0",
         "phpunit/phpunit": "~4.5"
+    },
+    "suggest": {
+        "illuminate/support": "Allow tests using a facade fake (~4||~5).",
+        "phpunit/phpunit": "Allow tests using a facade fake (~4.5)."
     },
     "autoload": {
         "psr-4": {
