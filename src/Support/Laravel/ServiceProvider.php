@@ -2,18 +2,12 @@
 
 namespace Aloha\Twilio\Support\Laravel;
 
-use Aloha\Twilio\Commands\TwilioCallCommand;
-use Aloha\Twilio\Commands\TwilioSmsCommand;
+use Aloha\Twilio\Interfaces\CommunicationsFacilitator;
 use Aloha\Twilio\Manager;
-use Aloha\Twilio\TwilioInterface;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
-    /**
-     * Register the service provider.
-     */
     public function register()
     {
         // Register manager for usage with the Facade.
@@ -26,21 +20,12 @@ class ServiceProvider extends BaseServiceProvider
         // Define an alias.
         $this->app->alias('twilio', Manager::class);
 
-        // Register Twilio Test SMS Command.
-        $this->app->singleton('twilio.sms', TwilioSmsCommand::class);
-
-        // Register Twilio Test Call Command.
-        $this->app->singleton('twilio.call', TwilioCallCommand::class);
-
         // Register TwilioInterface concretion.
-        $this->app->singleton(TwilioInterface::class, function() {
+        $this->app->singleton(CommunicationsFacilitator::class, function() {
             return $this->app->make('twilio')->defaultConnection();
         });
     }
 
-    /**
-     * Boot method.
-     */
     public function boot()
     {
         $this->publishes([
@@ -48,10 +33,5 @@ class ServiceProvider extends BaseServiceProvider
         ], 'config');
 
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'twilio');
-
-        $this->commands([
-            TwilioCallCommand::class,
-            TwilioSmsCommand::class,
-        ]);
     }
 }

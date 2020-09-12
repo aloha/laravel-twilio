@@ -2,6 +2,7 @@
 
 namespace Aloha\Twilio;
 
+use Aloha\Twilio\Interfaces\CommunicationsFacilitator;
 use Twilio\Exceptions\ConfigurationException;
 use Twilio\Exceptions\TwilioException;
 use Twilio\Rest\Api\V2010\Account\CallInstance;
@@ -10,39 +11,23 @@ use Twilio\Rest\Client;
 use Twilio\TwiML\TwiML;
 use Twilio\TwiML\VoiceResponse;
 
-class Twilio implements TwilioInterface
+class Twilio implements CommunicationsFacilitator
 {
-    /**
-     * @var string
-     */
+    /* @var string */
     protected $sid;
 
-    /**
-     * @var string
-     */
+    /* @var string */
     protected $token;
 
-    /**
-     * @var string
-     */
+    /* @var string */
     protected $from;
 
-    /**
-     * @var bool
-     */
+    /* @var bool */
     protected $sslVerify;
 
-    /**
-     * @var Client
-     */
+    /* @var Client */
     protected $twilio;
 
-    /**
-     * @param string $token
-     * @param string $from
-     * @param string $sid
-     * @param bool $sslVerify
-     */
     public function __construct(string $sid, string $token, string $from, bool $sslVerify = true)
     {
         $this->sid = $sid;
@@ -51,19 +36,7 @@ class Twilio implements TwilioInterface
         $this->sslVerify = $sslVerify;
     }
 
-    /**
-     * @param string $to
-     * @param string $message
-     * @param array $mediaUrls
-     * @param array $params
-     *
-     * @see https://www.twilio.com/docs/api/messaging/send-messages Documentation
-     *
-     * @throws ConfigurationException
-     * @throws TwilioException
-     *
-     * @return MessageInstance
-     */
+    /* @see https://www.twilio.com/docs/api/messaging/send-messages Documentation */
     public function message(string $to, string $message, array $mediaUrls = [], array $params = []): MessageInstance
     {
         $params['body'] = $message;
@@ -79,16 +52,9 @@ class Twilio implements TwilioInterface
         return $this->getTwilio()->messages->create($to, $params);
     }
 
-    /**
-     * @param string $to
+    /*
      * @param callable|string|TwiML $message
-     * @param array $params
-     *
-     * @throws TwilioException
-     *
      * @see https://www.twilio.com/docs/api/voice/making-calls Documentation
-     *
-     * @return CallInstance
      */
     public function call(string $to, $message, array $params = []): CallInstance
     {
@@ -109,11 +75,6 @@ class Twilio implements TwilioInterface
         );
     }
 
-    /**
-     * @throws ConfigurationException
-     *
-     * @return Client
-     */
     public function getTwilio(): Client
     {
         if ($this->twilio) {
@@ -123,11 +84,6 @@ class Twilio implements TwilioInterface
         return $this->twilio = new Client($this->sid, $this->token);
     }
 
-    /**
-     * @param callable $callback
-     *
-     * @return TwiML
-     */
     private function twiml(callable $callback): TwiML
     {
         $message = new VoiceResponse();
