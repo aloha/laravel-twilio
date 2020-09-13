@@ -2,71 +2,78 @@ laravel-twilio
 ===============
 Laravel Twilio API Integration
 
-[![Build Status](https://img.shields.io/travis/aloha/laravel-twilio.svg?style=flat-square)](https://travis-ci.org/aloha/laravel-twilio)
-[![Total Downloads](https://img.shields.io/packagist/dt/aloha/twilio.svg?style=flat-square)](https://packagist.org/packages/aloha/twilio)
-[![Latest Stable Version](https://img.shields.io/packagist/v/aloha/twilio.svg?style=flat-square)](https://packagist.org/packages/aloha/twilio)
 [![License](https://img.shields.io/github/license/aloha/laravel-twilio?style=flat-square)](#license)
 
 ## Installation
 
-Begin by installing this package through Composer. Run this command from the Terminal:
-
 ```bash
-composer require aloha/twilio
-```
-
-This will register two new artisan commands for you:
-
-- `twilio:sms`
-- `twilio:call`
-
-And make these objects resolvable from the IoC container:
-
-- `Aloha\Twilio\Manager` (aliased as `twilio`)
-- `Aloha\Twilio\TwilioInterface` (resolves a `Twilio` object, the default connection object created by the `Manager`).
-
-There's a Facade class available for you, if you like. In your `app.php` config file add the following
-line to the `aliases` array if you want to use a short class name:
-
-```php
-'Twilio' => 'Aloha\Twilio\Support\Laravel\Facade',
-```
-
-You can publish the default config file to `config/twilio.php` with the artisan command
-
-```shell
-php artisan vendor:publish --tag=config --provider=Aloha\Twilio\Support\Laravel\ServiceProvider
+composer require rksugarfree/twilio
 ```
 
 #### Facade
 
-The facade has the exact same methods as the `Aloha\Twilio\TwilioInterface`. First, include the `Facade` class at the top of your file:
+The default TwilioManager facade is available to you:
 
 ```php
-use Twilio;
+use TwilioManager;
 ```
 
-To send a message using the default entry from your `twilio` [config file](src/config/config.php):
+### Interfaces
+You can register the interfaces provided and, using Laravel's Service Container, bind them to an implementation in your app. One they are registered, all you'll
+have to do is type hint an interface, and the chosen implementation will be injected. [Service Container Docs](https://laravel.com/docs/8.x/container)
 
+#### Twilio Implementation
 ```php
-Twilio::message($user->phone, $message);
+$this->app->singleton(Interfaces\CommunicationsClient::class, function (Application $app) {
+    return $app->make('twilio')->defaultConnection();
+});
+
+$this->app->singleton(Interfaces\ClientManager::class, function (Application $app) {
+    return $app->make('twilio');
+});
 ```
 
-One extra feature is that you can define which settings (and which sender phone number) to use:
-
+#### Custom Implementation
+Create you own implementations by implementing CommunicationsClient and ClientManager in your own custom classes. Just create the classes and customize the published configuration to
+suit your needs.
 ```php
-Twilio::from('call_center')->message($user->phone, $message);
-Twilio::from('board_room')->message($boss->phone, 'Hi there boss!');
+$this->app->singleton(Interfaces\CommunicationsClient::class, function (Application $app) {
+    return new YourClassThatImplementsCommunicationsClient($app['config']->get("clients.{$defaultConnectionKey}"));
+});
+
+$this->app->singleton(Interfaces\ClientManager::class, function (Application $app) {
+    return new YourClassThatImplementsClientManager($app['config']->get('clients'));
+});
 ```
 
-Define multiple entries in your `twilio` [config file](src/config/config.php) to make use of this feature.
+You can publish the default config file to `config/clients.php` with the artisan command. You don't need to follow the conventions of the 'twilio'
+key, you can add whatever sub keys you need.
 
-### Usage
-
-Creating a Twilio object. This object implements the `Aloha\Twilio\TwilioInterface`.
+```shell
+php artisan vendor:publish --tag=config --provider=Rksugarfree\Twilio\Support\Laravel\ServiceProvider
+```
 
 ```php
-$twilio = new Aloha\Twilio\Twilio($accountId, $token, $fromNumber);
+return [
+    'your-connection-key' => [
+        //whatever you want
+    ]
+];
+```
+
+### Usage of the default TwilioManager
+
+To access the default Twilio implementation call the TwilioManager facade using the default connection. Since it's a facade
+you should access the methods statically:
+
+```php
+$twilio = TwilioManager::defaultConnection();
+```
+
+If you want to access a different connection from the Manager you can do this:
+
+```php
+$twilio = TwilioManager::from("{$keyInClientsConfig}");
 ```
 
 Sending a text message:
@@ -103,64 +110,38 @@ $twilio->call('+18085551212', $message);
 Access the configured `Twilio\Rest\Client` object:
 
 ```php
-$sdk = $twilio->getTwilio();
-```
-
-You can also access this via the Facade as well:
-
-```php
-$sdk = Twilio::getTwilio();
+$sdk = $twilio->getClient();
 ```
 
 ##### Pass as many optional parameters as you want
 
-If you want to pass on extra optional parameters to the `messages->sendMessage(...)` method [from the Twilio SDK](https://www.twilio.com/docs/api/messaging/send-messages), you can do so
-by adding to the `message` method. All arguments are passed on, and the `from` field is prepended from configuration.
+[Twilio Message Docs](https://www.twilio.com/docs/api/messaging/send-messages)
+
+You can customize tons of things about the call/message, including here it comes from: 
 
 ```php
+$params['from'] = '222-222-2222';
+
 $twilio->message($to, $message, $mediaUrls, $params);
-// passes all these params on.
 ```
 
 The same is true for the [call method](https://www.twilio.com/docs/api/voice/call#post-parameters).
 
 ```php
+$params['from'] = '222-222-2222';
+
 $twilio->call($to, $message, $params);
-// passes all these params on.
 ```
 
 #### Dummy class
 
-There is a dummy implementation of the `TwilioInterface` available: `Aloha\Twilio\Dummy`. This class
+There is a dummy implementation of the `CommunicationsClient` available: `Rksugarfree\Twilio\TwilioFake`. This class
 allows you to inject this instead of a working implementation in case you need to run quick integration tests.
-
-#### Logging decorator
-
-There is one more class available for you: the `Aloha\Twilio\LoggingDecorator`. This class wraps any
-`TwilioInterface` object and logs whatever Twilio will do for you. It also takes a `Psr\Log\LoggerInterface` object
-(like Monolog) for logging, you know.
-
-By default the service providers don't wrap objects with the `LoggingDecorator`,
-but it is at your disposal in case you want it. A possible use case is to construct a
-`TwilioInterface` object that logs what will happen, but doesn't actually call Twilio (using the Dummy class):
-
-```php
-if (getenv('APP_ENV') === 'production') {
-    $twilio = $container->make(\Aloha\Twilio\Manager::class);
-} else {
-    $psrLogger = $container->make(\Psr\Log\LoggerInterface::class);
-    $twilio = new LoggingDecorator($psrLogger, new \Aloha\Twilio\Dummy());
-}
-
-// Inject it wherever you want.
-$notifier = new Notifier($twilio);
-```
 
 ## Credits
 
-- [Hannes Van De Vreken](https://twitter.com/hannesvdvreken)
-- [Travis Ryan](https://twitter.com/nayrsivart)
-- [All Contributors](../../contributors)
+- Original Repo [Aloha/Twilio](https://github.com/aloha/laravel-twilio)
+- Robert Kerr [@rksugarfree](https://twitter.com/rksugarfree)
 
 ### License
 
