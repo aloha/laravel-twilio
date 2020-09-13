@@ -4,33 +4,24 @@ namespace Aloha\Twilio;
 
 use Aloha\Twilio\Interfaces\CommunicationsFacilitator;
 use InvalidArgumentException;
-use Twilio\Rest\Api\V2010\Account\CallInstance;
-use Twilio\Rest\Api\V2010\Account\MessageInstance;
-use Twilio\TwiML\TwiML;
 
-class Manager
+class ConnectionManager
 {
     /* @var string */
-    protected $default;
+    private $default;
 
     /* @var array */
-    protected $settings;
+    private $settings;
 
-    public function __construct(string $default, array $settings)
+    public function __construct(string $default = 'default', array $settings = [])
     {
         $this->default = $default;
-        $this->settings = $settings;
-    }
-
-    /* @return mixed */
-    public function __call(string $method, array $arguments)
-    {
-        return call_user_func_array([$this->defaultConnection(), $method], $arguments);
+        $this->settings = $settings ?? config('twilio');
     }
 
     public function from(string $connection): CommunicationsFacilitator
     {
-        if (!isset($this->settings[$connection])) {
+        if (empty($this->settings[$connection])) {
             throw new InvalidArgumentException("Connection \"{$connection}\" is not configured.");
         }
 
