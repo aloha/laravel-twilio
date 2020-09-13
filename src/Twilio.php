@@ -2,16 +2,14 @@
 
 namespace Aloha\Twilio;
 
-use Aloha\Twilio\Interfaces\CommunicationsFacilitator;
-use Twilio\Exceptions\ConfigurationException;
-use Twilio\Exceptions\TwilioException;
+use Aloha\Twilio\Interfaces\CommunicationsClient;
 use Twilio\Rest\Api\V2010\Account\CallInstance;
 use Twilio\Rest\Api\V2010\Account\MessageInstance;
 use Twilio\Rest\Client;
 use Twilio\TwiML\TwiML;
 use Twilio\TwiML\VoiceResponse;
 
-class Twilio implements CommunicationsFacilitator
+class Twilio implements CommunicationsClient
 {
     /* @var string */
     protected $sid;
@@ -26,9 +24,14 @@ class Twilio implements CommunicationsFacilitator
     protected $sslVerify;
 
     /* @var Client */
-    protected $twilio;
+    protected $client;
 
-    public function __construct(string $sid, string $token, string $from, bool $sslVerify = true)
+    public function __construct(
+        string $sid,
+        string $token,
+        string $from,
+        bool $sslVerify = true
+    )
     {
         $this->sid = $sid;
         $this->token = $token;
@@ -36,12 +39,17 @@ class Twilio implements CommunicationsFacilitator
         $this->sslVerify = $sslVerify;
     }
 
-    /* @see https://www.twilio.com/docs/api/messaging/send-messages Documentation */
-    public function message(string $to, string $message, array $mediaUrls = [], array $params = []): MessageInstance
+    /* https://www.twilio.com/docs/api/messaging/send-messages Documentation */
+    public function message(
+        string $to,
+        string $message,
+        array $mediaUrls = [],
+        array $params = []
+    ): MessageInstance
     {
         $params['body'] = $message;
 
-        if (!isset($params['from'])) {
+        if (empty($params['from'])) {
             $params['from'] = $this->from;
         }
 
@@ -49,7 +57,7 @@ class Twilio implements CommunicationsFacilitator
             $params['mediaUrl'] = $mediaUrls;
         }
 
-        return $this->getTwilio()->messages->create($to, $params);
+        return $this->getClient()->messages->create($to, $params);
     }
 
     /*
@@ -75,13 +83,13 @@ class Twilio implements CommunicationsFacilitator
         );
     }
 
-    public function getTwilio(): Client
+    public function getClient(): Client
     {
-        if ($this->twilio) {
-            return $this->twilio;
+        if ($this->client) {
+            return $this->client;
         }
 
-        return $this->twilio = new Client($this->sid, $this->token);
+        return $this->client = new Client($this->sid, $this->token);
     }
 
     private function twiml(callable $callback): TwiML
