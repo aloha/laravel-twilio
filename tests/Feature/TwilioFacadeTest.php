@@ -9,7 +9,6 @@ class TwilioFacadeTest extends TestCase
     public function it_makes_calls()
     {
         $this->markTestIncomplete();
-        $twilio = resolve('twilio');
     }
 
     public function it_sends_sms_messages()

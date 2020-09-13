@@ -2,14 +2,14 @@
 
 namespace Aloha\Twilio;
 
-use Aloha\Twilio\Interfaces\CommunicationsFacilitator;
+use Aloha\Twilio\Interfaces\CommunicationsClient;
 use Twilio\Rest\Api;
 use Twilio\Rest\Api\V2010;
 use Twilio\Rest\Api\V2010\Account\CallInstance;
 use Twilio\Rest\Api\V2010\Account\MessageInstance;
 use Twilio\Rest\Client;
 
-class TwilioFake implements CommunicationsFacilitator
+class TwilioFake implements CommunicationsClient
 {
     public function call(string $to, $message, array $params = []): CallInstance
     {
