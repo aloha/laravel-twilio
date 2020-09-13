@@ -1,8 +1,8 @@
 <?php
 
-namespace Aloha\Twilio;
+namespace Rksugarfree\Twilio;
 
-use Aloha\Twilio\Interfaces\CommunicationsClient;
+use Rksugarfree\Twilio\Interfaces\CommunicationsClient;
 use InvalidArgumentException;
 
 class TwilioManager

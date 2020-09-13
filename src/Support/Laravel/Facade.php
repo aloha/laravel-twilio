@@ -1,6 +1,6 @@
 <?php
 
-namespace Aloha\Twilio\Support\Laravel;
+namespace Rksugarfree\Twilio\Support\Laravel;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
 

@@ -1,10 +1,8 @@
 <?php
 
-namespace Aloha\Twilio\Support\Laravel;
+namespace Rksugarfree\Twilio\Support\Laravel;
 
-use Aloha\Twilio\Interfaces\ClientManager;
-use Aloha\Twilio\Interfaces\CommunicationsClient;
-use Aloha\Twilio\TwilioManager;
+use Rksugarfree\Twilio\TwilioManager;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

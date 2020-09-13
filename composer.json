@@ -1,6 +1,6 @@
 {
-    "name": "aloha/twilio",
-    "description": "Twilio API for Laravel",
+    "name": "rksugarfree/twilio",
+    "description": "Extendable Twilio API wrapper for Laravel",
     "type": "library",
     "keywords": ["sms", "ivr", "laravel", "twilio"],
     "authors": [
@@ -11,50 +11,45 @@
         {
             "name": "Hannes Van De Vreken",
             "email": "vandevreken.hannes@gmail.com"
+        },
+        {
+            "name": "Robert Kerr",
+            "email": "rksugarfree@gmail.com"
         }
     ],
-    "homepage":"https://github.com/aloha/laravel-twilio",
+    "homepage":"https://github.com/robkerr1992/laravel-twilio",
     "license": "MIT",
     "require": {
         "php": ">=7.2.0",
         "twilio/sdk": "^6.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "illuminate/console": "~6||~7||~8",
-        "illuminate/support": "~6||~7||~8",
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "~8.4.0",
+        "laravel/framework": "^8"
     },
     "autoload": {
         "psr-4": {
-            "Aloha\\Twilio\\": "src/"
+            "Rksugarfree\\Twilio\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Aloha\\Twilio\\Tests\\": "tests/"
+            "Rksugarfree\\Twilio\\Tests\\": "tests/"
         }
     },
     "scripts": {
-        "tests": "phpunit",
-        "lint": "php-cs-fixer fix --allow-risky=yes"
+        "test": "./vendor/bin/phpunit"
     },
-    "funding": [
-        {
-            "type": "github",
-            "url": "https://github.com/sponsors/hannesvdvreken"
-        }
-    ],
     "config": {
         "sort-packages": true
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Aloha\\Twilio\\Support\\Laravel\\ServiceProvider"
+                "Rksugarfree\\Twilio\\Support\\Laravel\\ServiceProvider"
             ],
             "aliases": {
-                "Twilio": "Aloha\\Twilio\\Support\\Laravel\\Facade"
+                "Twilio": "Rksugarfree\\Twilio\\Support\\Laravel\\Facade"
             }
         }
     }

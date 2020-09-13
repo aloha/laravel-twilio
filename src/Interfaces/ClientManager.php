@@ -1,6 +1,6 @@
 <?php
 
-namespace Aloha\Twilio\Interfaces;
+namespace Rksugarfree\Twilio\Interfaces;
 
 interface ClientManager
 {

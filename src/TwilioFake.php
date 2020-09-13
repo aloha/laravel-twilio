@@ -1,8 +1,8 @@
 <?php
 
-namespace Aloha\Twilio;
+namespace Rksugarfree\Twilio;
 
-use Aloha\Twilio\Interfaces\CommunicationsClient;
+use Rksugarfree\Twilio\Interfaces\CommunicationsClient;
 use Twilio\Rest\Api;
 use Twilio\Rest\Api\V2010;
 use Twilio\Rest\Api\V2010\Account\CallInstance;
