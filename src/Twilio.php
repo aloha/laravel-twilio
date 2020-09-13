@@ -76,9 +76,11 @@ class Twilio implements CommunicationsClient
             $params['url'] = $message;
         }
 
-        return $this->getTwilio()->calls->create(
+        $from = $params['from'] ?? $this->from;
+
+        return $this->getClient()->calls->create(
             $to,
-            $this->from,
+            $from,
             $params
         );
     }
