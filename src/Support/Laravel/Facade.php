@@ -13,6 +13,6 @@ class Facade extends BaseFacade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'twilio-manager';
+        return 'twilio';
     }
 }
