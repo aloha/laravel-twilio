@@ -6,11 +6,12 @@ return [
     | Connections
     |-------------------------------------------------------------------------------
     |
-    | The default connection should be enough for most apps. If you need additional
-    | connections you can add them to the configuration here.
+    | The twilio connection has already been implemented for you. If you need additional
+    | connections or custom implementations of the interfaces you can add them to the
+    | configuration here.
     |
     */
-    'default' => [
+    'twilio' => [
         /*
         |--------------------------------------------------------------------------
         | SID
@@ -38,7 +39,7 @@ return [
         |
         | The Phone number registered with Twilio that your SMS & Calls will come from,
         | You can override this when making calls and sms messages by setting the new number
-        | in the $params
+        | in $params['from']
         |
         */
         'from' => env('TWILIO_FROM', ''),
