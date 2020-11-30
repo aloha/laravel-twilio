@@ -35,7 +35,7 @@ line to the `aliases` array if you want to use a short class name:
 You can publish the default config file to `config/twilio.php` with the artisan command
 
 ```shell
-php artisan vendor:publish --tag=config --provider=Aloha\Twilio\Support\Laravel\ServiceProvider
+php artisan vendor:publish --tag=config --provider=Aloha\Twilio\Support\Laravel\L5ServiceProvider
 ```
 
 #### Facade
